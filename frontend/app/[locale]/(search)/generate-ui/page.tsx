@@ -1,16 +1,16 @@
-import UIWindowWapper from '@/app/[locale]/(search)/generate-ui/ui-window-wapper';
-import FeatureSections from '@/components/layout/feature-sections';
-import { GenerateUIHeroLanding } from '@/components/layout/generate-ui-hero-landing';
-import { SimpleSiteFooter } from '@/components/layout/simple-site-footer';
-import DemoGallery from '@/components/search/ui-demo-gallery';
-import { siteConfig } from '@/config';
-import { getCurrentUser } from '@/lib/session';
-import { generateId } from '@/lib/shared-utils';
+import UIWindowWapper from '@/app/[locale]/(search)/generate-ui/ui-window-wapper'
+import FeatureSections from '@/components/layout/feature-sections'
+import { GenerateUIHeroLanding } from '@/components/layout/generate-ui-hero-landing'
+import { SimpleSiteFooter } from '@/components/layout/simple-site-footer'
+import DemoGallery from '@/components/search/ui-demo-gallery'
+import { siteConfig } from '@/config'
+import { getCurrentUser } from '@/lib/session'
+import { generateId } from '@/lib/shared-utils'
 
-const SHORT_TITLE = 'AI UI Generator';
-const TITLE = 'MemFree - AI UI Generator';
-const DESCRIPTION = 'AI Generate UI componet and page With Claude AI, React, Tailwind ans Shadcn UI';
-const OG_IMAGE = 'https://image.memfree.me/UI-home.png';
+const SHORT_TITLE = 'AI UI Generator'
+const TITLE = 'Digital Mischief Group - AI UI Generator'
+const DESCRIPTION = 'AI Generate UI componet and page With Claude AI, React, Tailwind ans Shadcn UI'
+const OG_IMAGE = 'https://image.memfree.me/UI-home.png'
 
 export const metadata = {
     title: SHORT_TITLE,
@@ -40,14 +40,14 @@ export const metadata = {
         title: TITLE,
         description: DESCRIPTION,
         images: OG_IMAGE,
-        creator: '@MemFree',
+        creator: '@Digital Mischief Group',
     },
-};
+}
 
-export default async function GenerateUI({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
-    const id = generateId();
-    const user = await getCurrentUser();
-    const showFeatureSections = !searchParams.id;
+export default async function GenerateUI( { searchParams }: { searchParams: { [key: string]: string | string[] | undefined } } ) {
+    const id = generateId()
+    const user = await getCurrentUser()
+    const showFeatureSections = !searchParams.id
 
     return (
         <div className="group w-full flex flex-col flex-1 h-lvh mx-auto overflow-auto peer-[[data-state=open]]:lg:pl-[300px] peer-[[data-state=open]]:xl:pl-[320px]">
@@ -59,5 +59,5 @@ export default async function GenerateUI({ searchParams }: { searchParams: { [ke
             </div>
             <SimpleSiteFooter />
         </div>
-    );
+    )
 }

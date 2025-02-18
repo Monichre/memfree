@@ -1,5 +1,5 @@
-import { siteConfig } from '@/config';
-import Link from 'next/link';
+import { siteConfig } from '@/config'
+import Link from 'next/link'
 
 export function SimpleSiteFooter() {
     return (
@@ -10,7 +10,7 @@ export function SimpleSiteFooter() {
                     href={siteConfig.links.discord}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="MemFree Discord"
+                    aria-label="Digital Mischief Group Discord"
                     data-umami-event="Discord Click"
                 >
                     Discord
@@ -21,7 +21,7 @@ export function SimpleSiteFooter() {
                     href={siteConfig.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="MemFree GitHub"
+                    aria-label="Digital Mischief Group GitHub"
                     data-umami-event="Github Link Click"
                 >
                     GitHub
@@ -31,7 +31,7 @@ export function SimpleSiteFooter() {
                     className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:font-semibold"
                     href={siteConfig.links.feedback}
                     target="_blank"
-                    aria-label="MemFree Feedback"
+                    aria-label="Digital Mischief Group Feedback"
                     data-umami-event="Feedback Link Click"
                 >
                     Feedback
@@ -41,7 +41,7 @@ export function SimpleSiteFooter() {
                     className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:font-semibold"
                     href="/docs"
                     target="_blank"
-                    aria-label="MemFree Docs"
+                    aria-label="Digital Mischief Group Docs"
                     data-umami-event="Doc Link Click"
                     prefetch={false}
                 >
@@ -52,7 +52,7 @@ export function SimpleSiteFooter() {
                     className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:font-semibold"
                     href="/blog"
                     target="_blank"
-                    aria-label="MemFree Docs"
+                    aria-label="Digital Mischief Group Docs"
                     data-umami-event="Doc Link Click"
                     prefetch={false}
                 >
@@ -63,7 +63,7 @@ export function SimpleSiteFooter() {
                     className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:font-semibold"
                     href="/changelog"
                     target="_blank"
-                    aria-label="MemFree Docs"
+                    aria-label="Digital Mischief Group Docs"
                     data-umami-event="Doc Link Click"
                     prefetch={false}
                 >
@@ -74,7 +74,7 @@ export function SimpleSiteFooter() {
                     className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:font-semibold"
                     href="/roadmap"
                     target="_blank"
-                    aria-label="MemFree Docs"
+                    aria-label="Digital Mischief Group Docs"
                     data-umami-event="Doc Link Click"
                     prefetch={false}
                 >
@@ -86,12 +86,12 @@ export function SimpleSiteFooter() {
                     href={siteConfig.links.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="MemFree Twitter"
+                    aria-label="Digital Mischief Group Twitter"
                     data-umami-event="Twitter Click"
                 >
                     Twitter
                 </Link>
             </div>
         </footer>
-    );
+    )
 }

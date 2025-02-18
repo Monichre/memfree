@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { Settings, HelpCircle, Gem, Heart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { NewSearchButton } from '@/components/shared/new-search-button';
+import Link from 'next/link'
+import { Settings, HelpCircle, Gem, Heart } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { NewSearchButton } from '@/components/shared/new-search-button'
 
 export function MobileFooter() {
     return (
@@ -14,7 +14,7 @@ export function MobileFooter() {
                         </Link>
                     </Button> */}
                     <Button variant="ghost" size="icon" asChild>
-                        <Link href="https://www.memfree.me/feedback" target="_blank" aria-label="MemFree Feedback" data-umami-event="Mobile Feedback Click">
+                        <Link href="https://www.memfree.me/feedback" target="_blank" aria-label="Digital Mischief Group Feedback" data-umami-event="Mobile Feedback Click">
                             <Heart className="size-5 hover:text-primary" />
                         </Link>
                     </Button>
@@ -34,5 +34,5 @@ export function MobileFooter() {
                 </div>
             </div>
         </footer>
-    );
+    )
 }

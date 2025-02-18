@@ -1,7 +1,7 @@
-import { MarketingConfig } from '@/types';
-import { SiteConfig } from '@/types';
-import { SubscriptionPlan } from '@/types';
-import { DocsConfig } from '@/types';
+import { MarketingConfig } from '@/types'
+import { SiteConfig } from '@/types'
+import { SubscriptionPlan } from '@/types'
+import { DocsConfig } from '@/types'
 import {
     STRIPE_PRO_MONTHLY_PLAN_ID,
     STRIPE_PRO_YEARLY_PLAN_ID,
@@ -11,14 +11,14 @@ import {
     STRIPE_PREMIUM_YEARLY_PLAN_ID,
     STRIPE_PREMIUM_ONE_MONTH_ID,
     STRIPE_PREMIUM_ONE_YEAR_ID,
-} from '@/lib/client_env';
+} from '@/lib/client_env'
 
-const site_url = 'https://www.memfree.me';
-export const PageGenUrl = 'https://pagegen.ai';
-export const AhaToolUrl = 'https://www.ahatool.ai';
-export const StorySnapUrl = 'https://www.snapstoryai.com';
-export const SearchUrl = 'https://www.memfree.me';
-export const ImageGenerateUrl = 'https://www.memfree.me/generate-image';
+const site_url = 'https://www.memfree.me'
+export const PageGenUrl = 'https://pagegen.ai'
+export const AhaToolUrl = 'https://www.ahatool.ai'
+export const StorySnapUrl = 'https://www.snapstoryai.com'
+export const SearchUrl = 'https://www.memfree.me'
+export const ImageGenerateUrl = 'https://www.memfree.me/generate-image'
 
 export const siteConfig: SiteConfig = {
     name: 'MemFree',
@@ -32,7 +32,7 @@ export const siteConfig: SiteConfig = {
         feedback: 'https://www.memfree.me/feedback',
     },
     mailSupport: 'support@memfree.me',
-};
+}
 
 export const mainNavConfig: MarketingConfig = {
     mainNav: [
@@ -61,7 +61,7 @@ export const mainNavConfig: MarketingConfig = {
             href: '/changelog',
         },
     ],
-};
+}
 
 export const docsConfig: DocsConfig = {
     mainNav: [],
@@ -113,7 +113,7 @@ export const docsConfig: DocsConfig = {
             ],
         },
     ],
-};
+}
 
 export const pricingData: SubscriptionPlan[] = [
     {
@@ -160,4 +160,4 @@ export const pricingData: SubscriptionPlan[] = [
             yearly: STRIPE_PREMIUM_ONE_YEAR_ID,
         },
     },
-];
+]

@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { Modal } from '@/components/shared/modal';
-import { Button } from '@/components/ui/button';
-import { useSubscribeModal } from '@/hooks/use-subscribe-modal';
+import { Modal } from '@/components/shared/modal'
+import { Button } from '@/components/ui/button'
+import { useSubscribeModal } from '@/hooks/use-subscribe-modal'
 
 export const SubscribeModal = () => {
-    const subscribeModal = useSubscribeModal();
+    const subscribeModal = useSubscribeModal()
 
     return (
         <Modal showModal={subscribeModal.isOpen} setShowModal={subscribeModal.onClose}>
@@ -13,7 +13,7 @@ export const SubscribeModal = () => {
                 <div className="flex flex-col items-center justify-center space-y-3 border-b bg-background px-4 py-6 pt-8 text-center md:px-16">
                     <h3 className="font-urban text-2xl font-bold">{subscribeModal.isSuccess ? 'Subscribe Successfully' : 'Subscribe Failed'}</h3>
                     <p className="text-sm text-gray-500">
-                        {subscribeModal.isSuccess ? 'Thanks for subscribing MemFree' : 'Please check your emain or try again'}
+                        {subscribeModal.isSuccess ? 'Thanks for subscribing Digital Mischief Group' : 'Please check your emain or try again'}
                     </p>
                 </div>
 
@@ -21,7 +21,7 @@ export const SubscribeModal = () => {
                     <Button
                         variant="default"
                         onClick={() => {
-                            subscribeModal.onClose();
+                            subscribeModal.onClose()
                         }}
                         aria-label="Close modal"
                     >
@@ -30,5 +30,5 @@ export const SubscribeModal = () => {
                 </div>
             </div>
         </Modal>
-    );
-};
+    )
+}

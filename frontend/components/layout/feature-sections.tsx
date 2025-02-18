@@ -1,6 +1,6 @@
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 const features = [
     {
@@ -62,23 +62,23 @@ const features = [
     {
         header: 'Auto',
         name: 'Smart Error Correction',
-        description: `While MemFree's advanced AI model and sophisticated code rules strive for perfection, occasional errors may occur. Our Smart Error Correction feature allows you to instantly fix any issues with just one click`,
+        description: `While Digital Mischief Group's advanced AI model and sophisticated code rules strive for perfection, occasional errors may occur. Our Smart Error Correction feature allows you to instantly fix any issues with just one click`,
         video: 'https://image.memfree.me/memfree-generate-ui-auto-fix-error.mp4',
         reverse: false,
     },
-];
+]
 
 const FeatureSections = () => {
     return (
         <>
-            {features.map((feature) => (
+            {features.map( ( feature ) => (
                 <section key={feature.header}>
                     <div className="mx-auto px-4 md:px-24 py-6 sm:py-20">
                         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-5">
                             <div
-                                className={cn('m-auto lg:col-span-2', {
+                                className={cn( 'm-auto lg:col-span-2', {
                                     'lg:order-last': feature.reverse,
-                                })}
+                                } )}
                             >
                                 <p className="text-base font-semibold leading-7 text-primary">{feature.header}</p>
                                 <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">{feature.name}</h2>
@@ -86,10 +86,10 @@ const FeatureSections = () => {
 
                                 <Link
                                     className={cn(
-                                        buttonVariants({
+                                        buttonVariants( {
                                             variant: 'default',
                                             size: 'lg',
-                                        }),
+                                        } ),
                                         'mt-8',
                                     )}
                                     href="#hero"
@@ -102,9 +102,9 @@ const FeatureSections = () => {
                         </div>
                     </div>
                 </section>
-            ))}
+            ) )}
         </>
-    );
-};
+    )
+}
 
-export default FeatureSections;
+export default FeatureSections

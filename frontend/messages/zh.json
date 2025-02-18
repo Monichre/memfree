@@ -37,7 +37,7 @@
         "Premium4": "20000 条搜索历史",
         "Premium5": "单个文件最多50MB",
         "Premium6": "每个答案最多16384个token输出",
-        "Premium8": "支持 O1-preview AI 模型",
+        "Premium8": "支持 o1 AI 模型",
         "free-call": "继续使用免费版",
         "pre-call": "订阅",
         "pre-once-call": "一次性支付",

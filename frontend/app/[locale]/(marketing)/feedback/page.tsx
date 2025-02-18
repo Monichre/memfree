@@ -1,10 +1,10 @@
-import FeedbackForm from '@/components/layout/feedback';
-import { siteConfig } from '@/config';
-import { Metadata } from 'next/types';
+import FeedbackForm from '@/components/layout/feedback'
+import { siteConfig } from '@/config'
+import { Metadata } from 'next/types'
 
-const seoTitle = 'MemFree AI Feedback';
-const description = 'Share your Feedback to improve MemFree AI';
-const url = siteConfig.url + '/feedback';
+const seoTitle = 'Digital Mischief Group AI Feedback'
+const description = 'Share your Feedback to improve Digital Mischief Group AI'
+const url = siteConfig.url + '/feedback'
 
 export const metadata: Metadata = {
     title: seoTitle,
@@ -18,10 +18,10 @@ export const metadata: Metadata = {
         title: seoTitle,
         description: description,
         images: '/og.png',
-        creator: '@MemFree',
+        creator: '@Digital Mischief Group',
     },
-};
+}
 
 export default function Feedback() {
-    return <FeedbackForm />;
+    return <FeedbackForm />
 }

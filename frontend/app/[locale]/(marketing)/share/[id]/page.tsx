@@ -1,38 +1,38 @@
-import { type Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { type Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
-import { getSharedSearch } from '@/lib/store/search';
-import { HeroLanding } from '@/components/layout/hero-landing';
-import SearchWindow from '@/components/search/search-window';
-import Link from 'next/link';
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { SearchType } from '@/lib/types';
+import { getSharedSearch } from '@/lib/store/search'
+import { HeroLanding } from '@/components/layout/hero-landing'
+import SearchWindow from '@/components/search/search-window'
+import Link from 'next/link'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { SearchType } from '@/lib/types'
 
 interface SharePageProps {
     params: {
-        id: string;
-    };
+        id: string
+    }
 }
 
-export async function generateMetadata({ params }: SharePageProps): Promise<Metadata> {
-    const search = await getSharedSearch(params.id);
+export async function generateMetadata( { params }: SharePageProps ): Promise<Metadata> {
+    const search = await getSharedSearch( params.id )
 
     return {
-        title: search?.title ?? 'MemFree - Hybrid AI Search',
-        description: search?.title ?? 'MemFree - Hybrid AI Search',
-    };
+        title: search?.title ?? 'Digital Mischief Group - Hybrid AI Search',
+        description: search?.title ?? 'Digital Mischief Group - Hybrid AI Search',
+    }
 }
 
-export default async function SharePage({ params }: SharePageProps) {
-    const search = await getSharedSearch(params.id);
-    if (!search || !search?.sharePath) {
-        notFound();
+export default async function SharePage( { params }: SharePageProps ) {
+    const search = await getSharedSearch( params.id )
+    if ( !search || !search?.sharePath ) {
+        notFound()
     }
-    const isUI = search?.messages[0]?.type === 'ui';
-    const content = isUI ? 'AI Generate UI Now' : 'AI Search Now';
-    const link = isUI ? '/generate-ui' : '/';
-    const searchType = isUI ? SearchType.UI : SearchType.SEARCH;
+    const isUI = search?.messages[0]?.type === 'ui'
+    const content = isUI ? 'AI Generate UI Now' : 'AI Search Now'
+    const link = isUI ? '/generate-ui' : '/'
+    const searchType = isUI ? SearchType.UI : SearchType.SEARCH
 
     return (
         <div className="flex-1 space-y-6">
@@ -46,10 +46,10 @@ export default async function SharePage({ params }: SharePageProps) {
                 demoQuestions={<></>}
             ></SearchWindow>
             <div className="flex justify-center py-6 mb-10">
-                <Link href={link} prefetch={false} className={cn(buttonVariants({ size: 'lg', rounded: 'full' }), 'gap-2')}>
+                <Link href={link} prefetch={false} className={cn( buttonVariants( { size: 'lg', rounded: 'full' } ), 'gap-2' )}>
                     {content}
                 </Link>
             </div>
         </div>
-    );
+    )
 }

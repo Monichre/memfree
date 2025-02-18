@@ -1,52 +1,52 @@
-'use client';
+'use client'
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import TextareaAutosize from 'react-textarea-autosize';
-import React, { useEffect, useState } from 'react';
-import { Label } from '@/components/ui/label';
-import { useProfileStore } from '@/lib/store/local-store';
-import { toast } from 'sonner';
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import TextareaAutosize from 'react-textarea-autosize'
+import React, { useEffect, useState } from 'react'
+import { Label } from '@/components/ui/label'
+import { useProfileStore } from '@/lib/store/local-store'
+import { toast } from 'sonner'
 
 export function CustomProfile() {
-    const [isPending, startTransition] = React.useTransition();
-    const [content, setContent] = useState<string>('');
-    const { profile, setProfile } = useProfileStore();
+    const [isPending, startTransition] = React.useTransition()
+    const [content, setContent] = useState<string>( '' )
+    const { profile, setProfile } = useProfileStore()
 
-    useEffect(() => {
-        setContent(profile);
-    }, [profile]);
+    useEffect( () => {
+        setContent( profile )
+    }, [profile] )
 
     const handleSave = () => {
-        if (!content.trim()) {
-            toast.error('Profile content cannot be empty');
-            return;
+        if ( !content.trim() ) {
+            toast.error( 'Profile content cannot be empty' )
+            return
         }
-        if (content.length > 500) {
-            toast.error('Profile content is too long, the maximum length is 500');
-            return;
+        if ( content.length > 500 ) {
+            toast.error( 'Profile content is too long, the maximum length is 500' )
+            return
         }
 
-        startTransition(() => {
+        startTransition( () => {
             try {
-                setProfile(content);
-                toast.success('Profile saved successfully');
-            } catch (error) {
-                console.error('Error saving profile:', error);
-                toast.error('Failed to save profile');
+                setProfile( content )
+                toast.success( 'Profile saved successfully' )
+            } catch ( error ) {
+                console.error( 'Error saving profile:', error )
+                toast.error( 'Failed to save profile' )
             }
-        });
-    };
+        } )
+    }
 
     return (
         <Card>
             <CardHeader>
                 <CardTitle>Customize Profile</CardTitle>
                 <CardDescription className="text-gray-700 py-2">
-                    Introduce yourself for personalized answers. Share any information or instructions that MemFree should know.
+                    Introduce yourself for personalized answers. Share any information or instructions that Digital Mischief Group should know.
                 </CardDescription>
                 <CardDescription>
-                    Your profile is private and only used to instruct MemFree to be more useful to you. Pause or clear your profile at any time.
+                    Your profile is private and only used to instruct Digital Mischief Group to be more useful to you. Pause or clear your profile at any time.
                 </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col space-y-2">
@@ -58,7 +58,7 @@ export function CustomProfile() {
                     minRows={3}
                     maxRows={8}
                     className="w-full border rounded-xl bg-transparent p-4 text-sm placeholder:text-muted-foreground overflow-y-auto  outline-0 ring-0  focus-visible:outline-none focus-visible:ring-0 resize-none"
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={( e ) => setContent( e.target.value )}
                 ></TextareaAutosize>
             </CardContent>
             <CardFooter>
@@ -67,5 +67,5 @@ export function CustomProfile() {
                 </Button>
             </CardFooter>
         </Card>
-    );
+    )
 }

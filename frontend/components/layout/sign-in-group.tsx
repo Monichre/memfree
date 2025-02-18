@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { Icons } from '@/components/shared/icons';
-import { Button } from '@/components/ui/button';
-import { signIn } from 'next-auth/react';
-import Link from 'next/link';
-import { siteConfig } from '@/config';
-import { EmailForm } from '@/components/email-form';
-import Image from 'next/image';
+import { Icons } from '@/components/shared/icons'
+import { Button } from '@/components/ui/button'
+import { signIn } from 'next-auth/react'
+import Link from 'next/link'
+import { siteConfig } from '@/config'
+import { EmailForm } from '@/components/email-form'
+import Image from 'next/image'
 
 export function SignInGroup() {
-    const [signInClicked, setSignInClicked] = useState(false);
+    const [signInClicked, setSignInClicked] = useState( false )
     return (
         <div className="w-full">
             <div className="flex flex-col items-center justify-center space-y-3 bg-background py-6 text-center md:px-16">
                 <a href={siteConfig.url}>
-                    <Image src={'/logo.png'} width="24" height="24" alt="MemFree Logo"></Image>
+                    <Image src={'/logo.png'} width="24" height="24" alt="Digital Mischief Group Logo"></Image>
                 </a>
-                <h3 className="font-urban text-2xl font-bold">MemFree</h3>
+                <h3 className="font-urban text-2xl font-bold">Digital Mischief Group</h3>
                 <p className="text-md font-medium">Sign in to unlock more features</p>
             </div>
 
@@ -28,10 +28,10 @@ export function SignInGroup() {
                     disabled={signInClicked}
                     data-umami-event="Sign In Google"
                     onClick={() => {
-                        setSignInClicked(true);
-                        signIn('google', { callbackUrl: '/' }).then(() => {
-                            setSignInClicked(false);
-                        });
+                        setSignInClicked( true )
+                        signIn( 'google', { callbackUrl: '/' } ).then( () => {
+                            setSignInClicked( false )
+                        } )
                     }}
                     aria-label={signInClicked ? 'Signing in with Google' : 'Sign in with Google'}
                 >
@@ -43,10 +43,10 @@ export function SignInGroup() {
                     disabled={signInClicked}
                     data-umami-event="Sign In Github"
                     onClick={() => {
-                        setSignInClicked(true);
-                        signIn('github', { callbackUrl: '/' }).then(() => {
-                            setSignInClicked(false);
-                        });
+                        setSignInClicked( true )
+                        signIn( 'github', { callbackUrl: '/' } ).then( () => {
+                            setSignInClicked( false )
+                        } )
                     }}
                     aria-label={signInClicked ? 'Signing in with GitHub' : 'Sign in with GitHub'}
                 >
@@ -76,5 +76,5 @@ export function SignInGroup() {
                 </Link>
             </p>
         </div>
-    );
+    )
 }

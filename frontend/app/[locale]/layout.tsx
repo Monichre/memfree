@@ -1,45 +1,45 @@
-import '@/styles/globals.css';
+import '@/styles/globals.css'
 
-import { ModalProvider } from '@/components/modal-provider';
-import { Toaster } from '@/components/ui/sonner';
-import { siteConfig } from '@/config';
-import { cn } from '@/lib/utils';
-import { ThemeProvider } from 'next-themes';
-import Script from 'next/script';
-import { SidebarProvider } from '@/hooks/use-sidebar';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { Inter } from 'next/font/google';
+import { ModalProvider } from '@/components/modal-provider'
+import { Toaster } from '@/components/ui/sonner'
+import { siteConfig } from '@/config'
+import { cn } from '@/lib/utils'
+import { ThemeProvider } from 'next-themes'
+import Script from 'next/script'
+import { SidebarProvider } from '@/hooks/use-sidebar'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { Inter } from 'next/font/google'
 
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { routing } from '@/i18n/routing';
-import { ReferrerTracker } from '@/components/shared/referrer-tracker';
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { routing } from '@/i18n/routing'
+import { ReferrerTracker } from '@/components/shared/referrer-tracker'
 
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return routing.locales.map( ( locale ) => ( { locale } ) )
 }
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter( { subsets: ['latin'] } )
 
-export async function generateMetadata({ params: { locale } }) {
-    unstable_setRequestLocale(locale);
-    const t = await getTranslations({ locale, namespace: 'MetaDate' });
+export async function generateMetadata( { params: { locale } } ) {
+    unstable_setRequestLocale( locale )
+    const t = await getTranslations( { locale, namespace: 'MetaDate' } )
 
-    const canonical = locale === 'en' ? '/' : `/${locale}`;
+    const canonical = locale === 'en' ? '/' : `/${locale}`
 
     return {
         title: {
-            default: t('title'),
-            template: `%s | ${t('name')}`,
+            default: t( 'title' ),
+            template: `%s | ${t( 'name' )}`,
         },
-        description: t('description'),
+        description: t( 'description' ),
         authors: [
             {
-                name: 'MemFree',
+                name: 'Digital Mischief Group',
             },
         ],
-        creator: t('name'),
-        metadataBase: new URL(siteConfig.url),
+        creator: t( 'name' ),
+        metadataBase: new URL( siteConfig.url ),
         alternates: {
             canonical: canonical,
             languages: {
@@ -51,25 +51,25 @@ export async function generateMetadata({ params: { locale } }) {
             type: 'website',
             locale: locale,
             url: siteConfig.url,
-            title: t('title'),
-            description: t('description'),
-            siteName: t('name'),
+            title: t( 'title' ),
+            description: t( 'description' ),
+            siteName: t( 'name' ),
             images: [
                 {
                     url: siteConfig.ogImage,
                     width: 1200,
                     height: 630,
-                    alt: t('name'),
+                    alt: t( 'name' ),
                 },
             ],
         },
         twitter: {
             card: 'summary_large_image',
             site: siteConfig.url,
-            title: t('title'),
-            description: t('description'),
+            title: t( 'title' ),
+            description: t( 'description' ),
             images: [siteConfig.ogImage],
-            creator: '@MemFree',
+            creator: '@Digital Mischief Group',
         },
         icons: {
             icon: '/favicon.ico',
@@ -77,17 +77,20 @@ export async function generateMetadata({ params: { locale } }) {
             apple: '/apple-touch-icon.png',
         },
         manifest: `${siteConfig.url}/site.webmanifest`,
-    };
+    }
 }
 
-export default async function RootLayout({ children, params: { locale } }: { children: React.ReactNode; params: { locale: string } }) {
-    unstable_setRequestLocale(locale);
-    const messages = await getMessages();
+export default async function RootLayout( { children, params: { locale } }: { children: React.ReactNode; params: { locale: string } } ) {
+    unstable_setRequestLocale( locale )
+    const messages = await getMessages()
+
+    console.log( "🚀 ~ RootLayout ~ messages:", messages )
+
 
     return (
         <html lang={locale} suppressHydrationWarning>
             <head />
-            <body className={cn(inter.className, 'antialiased')}>
+            <body className={cn( inter.className, 'antialiased' )}>
                 <Toaster position="top-center" />
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
                     <SidebarProvider>
@@ -109,5 +112,5 @@ export default async function RootLayout({ children, params: { locale } }: { chi
                 ></Script>
             </body>
         </html>
-    );
+    )
 }

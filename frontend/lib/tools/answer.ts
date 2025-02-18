@@ -1,12 +1,12 @@
-import 'server-only';
+import 'server-only'
 
-import { getMaxOutputToken, StreamHandler } from '@/lib/llm/llm';
-import { DirectAnswerPrompt, ProductHuntPrompt, SummaryPrompt, IndieMakerPrompt } from '@/lib/llm/prompt';
-import { logError } from '@/lib/log';
-import { extractErrorMessage } from '@/lib/server-utils';
-import { SearchCategory, TextSource } from '@/lib/types';
-import { LanguageModel, streamText } from 'ai';
-import util from 'util';
+import { getMaxOutputToken, StreamHandler } from '@/lib/llm/llm'
+import { DirectAnswerPrompt, ProductHuntPrompt, SummaryPrompt, IndieMakerPrompt } from '@/lib/llm/prompt'
+import { logError } from '@/lib/log'
+import { extractErrorMessage } from '@/lib/server-utils'
+import { SearchCategory, TextSource } from '@/lib/types'
+import { LanguageModel, streamText } from 'ai'
+import util from 'util'
 
 export async function directlyAnswer(
     isPro: boolean,
@@ -17,43 +17,56 @@ export async function directlyAnswer(
     query: string,
     searchContexts: TextSource[],
     onStream: StreamHandler,
-    onError: (error: string) => void,
+    onError: ( error: string ) => void,
 ) {
     try {
-        const system = promptFormatterAnswer(source, profile, searchContexts, history);
+        const system = promptFormatterAnswer( source, profile, searchContexts, history )
         // console.log('system prompt: ', system);
-        const maxTokens = getMaxOutputToken(isPro, model.modelId);
+        console.log( 'model: ', model )
+        let result
+        if ( model.includes( 'o3-mini' ) ) {
+            result = await streamText( {
+                model: model,
+                system: system,
+                prompt: query,
+                maxRetries: 0,
 
-        const result = await streamText({
-            model: model,
-            system: system,
-            prompt: query,
-            maxRetries: 0,
-            maxTokens: maxTokens,
-            temperature: 0.1,
-        });
 
-        for await (const text of result.textStream) {
-            onStream?.(text, false);
+            } )
+        } else {
+            const maxTokens = getMaxOutputToken( isPro, model.modelId )
+            result = await streamText( {
+                model: model,
+                system: system,
+                prompt: query,
+                maxRetries: 0,
+                maxTokens: maxTokens,
+                temperature: 0.1,
+            } )
         }
-    } catch (error) {
-        const errorMessage = extractErrorMessage(error);
-        logError(new Error(errorMessage), `llm-direct-${model}`);
-        onError(errorMessage);
+
+
+        for await ( const text of result.textStream ) {
+            onStream?.( text, false )
+        }
+    } catch ( error ) {
+        const errorMessage = extractErrorMessage( error )
+        logError( new Error( errorMessage ), `llm-direct-${model}` )
+        onError( errorMessage )
     }
 }
 
-function promptFormatterAnswer(source: SearchCategory, profile: string, searchContexts: any[], history: string) {
-    const context = searchContexts.map((item, index) => `[citation:${index + 1}] ${item.content}`).join('\n\n');
+function promptFormatterAnswer( source: SearchCategory, profile: string, searchContexts: any[], history: string ) {
+    const context = searchContexts.map( ( item, index ) => `[citation:${index + 1}] ${item.content}` ).join( '\n\n' )
 
-    switch (source) {
+    switch ( source ) {
         case SearchCategory.PRODUCT_HUNT:
-            return util.format(ProductHuntPrompt, context);
+            return util.format( ProductHuntPrompt, context )
         case SearchCategory.INDIE_MAKER:
-            return util.format(IndieMakerPrompt, context);
+            return util.format( IndieMakerPrompt, context )
         case SearchCategory.WEB_PAGE:
-            return util.format(SummaryPrompt, JSON.stringify(searchContexts, null, 2));
+            return util.format( SummaryPrompt, JSON.stringify( searchContexts, null, 2 ) )
         default:
-            return util.format(DirectAnswerPrompt, profile, context, history);
+            return util.format( DirectAnswerPrompt, profile, context, history )
     }
 }

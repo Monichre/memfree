@@ -1,111 +1,111 @@
 // components/SearchDialog.tsx
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Loader2, MessageCircle } from 'lucide-react';
-import { isUserFullIndexed } from '@/lib/store/search';
-import { User } from '@/lib/types';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { resolveTime } from '@/lib/utils';
-import { toast } from 'sonner';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useIndexStore } from '@/lib/store/local-store';
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Loader2, MessageCircle } from 'lucide-react'
+import { isUserFullIndexed } from '@/lib/store/search'
+import { User } from '@/lib/types'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { resolveTime } from '@/lib/utils'
+import { toast } from 'sonner'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useIndexStore } from '@/lib/store/local-store'
 
 interface SearchResult {
-    id: string;
-    title: string;
-    url: string;
+    id: string
+    title: string
+    url: string
 }
 
 interface SearchDialogProps {
-    openSearch: boolean;
-    onOpenModelChange: (open: boolean) => void;
-    user: User;
+    openSearch: boolean
+    onOpenModelChange: ( open: boolean ) => void
+    user: User
 }
 
 interface SearchResult {
-    title: string;
-    url: string;
-    text: string;
-    create_time: Date;
+    title: string
+    url: string
+    text: string
+    create_time: Date
 }
 
-export function SearchDialog({ openSearch: open, onOpenModelChange: onOpenChange, user: user }: SearchDialogProps) {
-    const router = useRouter();
-    const [query, setQuery] = useState('');
-    const [results, setResults] = useState<SearchResult[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
+export function SearchDialog( { openSearch: open, onOpenModelChange: onOpenChange, user: user }: SearchDialogProps ) {
+    const router = useRouter()
+    const [query, setQuery] = useState( '' )
+    const [results, setResults] = useState<SearchResult[]>( [] )
+    const [isLoading, setIsLoading] = useState( false )
 
-    const { isIndexed, isIndexing, setIsIndexed, setIsIndexing } = useIndexStore();
-    useEffect(() => {
+    const { isIndexed, isIndexing, setIsIndexed, setIsIndexing } = useIndexStore()
+    useEffect( () => {
         const checkIndexStatus = async () => {
-            if (open && user?.id && !isIndexed) {
-                const indexed = await isUserFullIndexed(user?.id);
-                if (indexed) {
-                    setIsIndexed(indexed);
-                    setIsIndexing(false);
+            if ( open && user?.id && !isIndexed ) {
+                const indexed = await isUserFullIndexed( user?.id )
+                if ( indexed ) {
+                    setIsIndexed( indexed )
+                    setIsIndexing( false )
                 }
             }
-        };
-        checkIndexStatus();
-    }, [open, user?.id, isIndexed]);
+        }
+        checkIndexStatus()
+    }, [open, user?.id, isIndexed] )
 
     const handleFullIndex = async () => {
-        if (isIndexing) return;
-        setIsIndexing(true);
+        if ( isIndexing ) return
+        setIsIndexing( true )
         try {
-            const response = await fetch('/api/history-index', {
+            const response = await fetch( '/api/history-index', {
                 method: 'POST',
-            });
+            } )
 
-            if (!response.ok) {
-                throw new Error('Failed to trigger full index');
+            if ( !response.ok ) {
+                throw new Error( 'Failed to trigger full index' )
             }
 
-            const result = await response.json();
-            console.log('Full index result:', result);
-            if (result === 'Success') {
-                toast.success('Historical messages have started to index', {
+            const result = await response.json()
+            console.log( 'Full index result:', result )
+            if ( result === 'Success' ) {
+                toast.success( 'Historical messages have started to index', {
                     description:
-                        'MemFreeq is building your search index in the background. It will take several minutes to complete. You can use the search function after it is completed.',
+                        'Digital Mischief Groupq is building your search index in the background. It will take several minutes to complete. You can use the search function after it is completed.',
                     duration: 5000,
-                });
-                onOpenChange(false);
+                } )
+                onOpenChange( false )
             }
-        } catch (error) {
-            console.error('Failed to trigger full index:', error);
-            setIsIndexing(false);
+        } catch ( error ) {
+            console.error( 'Failed to trigger full index:', error )
+            setIsIndexing( false )
         }
-    };
+    }
 
-    const handleSearch = async (searchQuery: string) => {
-        if (!searchQuery.trim()) {
-            setResults([]);
-            return;
+    const handleSearch = async ( searchQuery: string ) => {
+        if ( !searchQuery.trim() ) {
+            setResults( [] )
+            return
         }
 
-        setIsLoading(true);
+        setIsLoading( true )
         try {
-            const response = await fetch(`/api/history-search?q=${encodeURIComponent(searchQuery)}`);
-            const data = await response.json();
-            console.log(data);
-            setResults(data);
-        } catch (error) {
-            console.error('search error:', error);
-            setResults([]);
+            const response = await fetch( `/api/history-search?q=${encodeURIComponent( searchQuery )}` )
+            const data = await response.json()
+            console.log( data )
+            setResults( data )
+        } catch ( error ) {
+            console.error( 'search error:', error )
+            setResults( [] )
         } finally {
-            setIsLoading(false);
+            setIsLoading( false )
         }
-    };
+    }
 
-    const handleResultClick = (url: string) => {
-        router.push('/search/' + url);
-        onOpenChange(false);
-    };
+    const handleResultClick = ( url: string ) => {
+        router.push( '/search/' + url )
+        onOpenChange( false )
+    }
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -140,11 +140,11 @@ export function SearchDialog({ openSearch: open, onOpenModelChange: onOpenChange
                                 type="text"
                                 placeholder="Search your search history"
                                 value={query}
-                                onChange={(e) => setQuery(e.target.value)}
+                                onChange={( e ) => setQuery( e.target.value )}
                                 className="flex-1 border outline-0 ring-0  focus-visible:outline-none focus-visible:ring-0 resize-none focus-within:border-primary"
                                 autoFocus
                             />
-                            <Button onClick={() => handleSearch(query)} disabled={isLoading}>
+                            <Button onClick={() => handleSearch( query )} disabled={isLoading}>
                                 {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Search'}
                             </Button>
                         </div>
@@ -154,7 +154,7 @@ export function SearchDialog({ openSearch: open, onOpenModelChange: onOpenChange
                                 <div className="flex flex-col items-center justify-center h-full">
                                     <div className="text-sm text-muted-foreground">Searching ...</div>
                                     <div className="space-y-4 p-4">
-                                        {Array.from({ length: 5 }).map((_, index) => (
+                                        {Array.from( { length: 5 } ).map( ( _, index ) => (
                                             <div key={index} className="flex items-center gap-3 w-full">
                                                 <Skeleton className="h-5 w-5 rounded-full" />
 
@@ -167,16 +167,16 @@ export function SearchDialog({ openSearch: open, onOpenModelChange: onOpenChange
 
                                                 <Skeleton className="h-4 w-[100px]" />
                                             </div>
-                                        ))}
+                                        ) )}
                                     </div>
                                 </div>
                             ) : (
                                 <div>
-                                    {results.map((result, index) => (
+                                    {results.map( ( result, index ) => (
                                         <div
                                             key={index}
                                             className="flex items-center gap-3 p-4 hover:bg-primary/20 cursor-pointer rounded-md relative group"
-                                            onClick={() => handleResultClick(result.url)}
+                                            onClick={() => handleResultClick( result.url )}
                                         >
                                             <div className="flex items-center justify-center">
                                                 <MessageCircle className="h-5 w-5 text-muted-foreground" />
@@ -188,10 +188,10 @@ export function SearchDialog({ openSearch: open, onOpenModelChange: onOpenChange
                                                 </p>
                                             </div>
                                             <div className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <span className="text-sm text-muted-foreground px-2 py-1 rounded">{resolveTime(result.create_time)}</span>
+                                                <span className="text-sm text-muted-foreground px-2 py-1 rounded">{resolveTime( result.create_time )}</span>
                                             </div>
                                         </div>
-                                    ))}
+                                    ) )}
                                 </div>
                             )}
                         </div>
@@ -199,5 +199,5 @@ export function SearchDialog({ openSearch: open, onOpenModelChange: onOpenChange
                 )}
             </DialogContent>
         </Dialog>
-    );
+    )
 }

@@ -1,17 +1,18 @@
 {
     "HomePage": {
-        "hero": "Unlock Accurate Answers Faster",
-        "hero-product": "Vote for MemFree for 20% discount!",
-        "hero-h1": "Hybrid AI Search - get Accurate Answers Faster",
-        "hero2": "Hybrid AI Search from Knowledge Base and Internet"
+        "hero": "Digital Mischief Search Engine",
+        "hero-product": "",
+        "hero-h1": "",
+        "hero2": "",
+        "hero3": ""
     },
     "MetaDate": {
-        "title": "MemFree - Hybrid AI Search",
-        "name": "MemFree",
-        "description": "MemFree - Hybrid AI Search from Knowledge base and Internet, get Accurate Answers Faster"
+        "title": "DMG - Hybrid AI Search",
+        "name": "DMG",
+        "description": "DMG - Hybrid AI Search from Knowledge base and Internet, get Accurate Answers Faster"
     },
     "Pricing": {
-        "title": "MemFree Pricing",
+        "title": "DMG Pricing",
         "description": "Get Unlimited Access Now",
         "Free1": "Up to 5 Basic AI Searches per day",
         "Free8": "Up to 5 AI UI Page generations per day",
@@ -37,7 +38,7 @@
         "Premium4": "20000 Saving of Search History",
         "Premium5": "Up to 50MB For Single File to Ask",
         "Premium6": "Up to 16384 tokens output Per Answer",
-        "Premium8": "Support O1-preview AI Model",
+        "Premium8": "Support o1 AI Model",
         "free-call": "Continue with Free",
         "pre-call": "Subscribe",
         "pre-once-call": "Pay Once",

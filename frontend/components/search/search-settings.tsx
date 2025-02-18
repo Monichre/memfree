@@ -1,23 +1,23 @@
-import * as React from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { AnswerLanguageSelection, QuestionLanguageSelection } from '@/components/search/language-selection';
-import { useUIStore } from '@/lib/store/local-store';
-import { BookA, BookKey, Map } from 'lucide-react';
+import * as React from 'react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
+import { AnswerLanguageSelection, QuestionLanguageSelection } from '@/components/search/language-selection'
+import { useUIStore } from '@/lib/store/local-store'
+import { BookA, BookKey, Map } from 'lucide-react'
 
 interface SearchSettingsProps {
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
+    open: boolean
+    onOpenChange: ( open: boolean ) => void
 }
 
-export function SearchSettingsDialog({ open, onOpenChange }: SearchSettingsProps) {
-    const { showMindMap, setShowMindMap } = useUIStore();
+export function SearchSettingsDialog( { open, onOpenChange }: SearchSettingsProps ) {
+    const { showMindMap, setShowMindMap } = useUIStore()
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-xl mx-auto">
                 <DialogHeader>
-                    <DialogTitle>MemFree Search Settings</DialogTitle>
+                    <DialogTitle>Digital Mischief Group Search Settings</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-8 py-4">
                     <div className="flex flex-col space-y-2">
@@ -49,5 +49,5 @@ export function SearchSettingsDialog({ open, onOpenChange }: SearchSettingsProps
                 </div>
             </DialogContent>
         </Dialog>
-    );
+    )
 }

@@ -1,18 +1,18 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import { RowSelectItem, Select, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Box } from 'lucide-react';
-import { useModelStore, useUserStore } from '@/lib/store/local-store';
-import { useSigninModal } from '@/hooks/use-signin-modal';
-import { Claude_35_Haiku, Claude_35_Sonnet, DEEPSEEK, DEEPSEEK_R1, GEMIMI_2, GPT_4o, GPT_4o_MIMI, O1_MIMI, O1_PREVIEW } from '@/lib/llm/model';
-import { isProUser, isPremiumUser } from '@/lib/shared-utils';
-import { useUpgradeModal } from '@/hooks/use-upgrade-modal';
+import { RowSelectItem, Select, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Box } from 'lucide-react'
+import { useModelStore, useUserStore } from '@/lib/store/local-store'
+import { useSigninModal } from '@/hooks/use-signin-modal'
+import { Claude_35_Haiku, Claude_35_Sonnet, DEEPSEEK, DEEPSEEK_R1, GPT_4o, GPT_4o_MIMI, O1_MINI, O1, O3_MINI } from '@/lib/llm/model'
+import { isProUser, isPremiumUser } from '@/lib/shared-utils'
+import { useUpgradeModal } from '@/hooks/use-upgrade-modal'
 
 type Model = {
-    name: string;
-    value: string;
-    flag?: string;
-};
+    name: string
+    value: string
+    flag?: string
+}
 
 export const modelMap: Record<string, Model> = {
     [GPT_4o_MIMI]: {
@@ -26,92 +26,94 @@ export const modelMap: Record<string, Model> = {
     },
     [GPT_4o]: {
         name: 'GPT-4o',
-        flag: 'Pro',
         value: GPT_4o,
     },
     [Claude_35_Haiku]: {
         name: 'Claude 3.5 Haiku',
-        flag: 'Pro',
         value: Claude_35_Haiku,
     },
     [Claude_35_Sonnet]: {
         name: 'Claude 3.5 Sonnet',
-        flag: 'Pro',
         value: Claude_35_Sonnet,
     },
-    [GEMIMI_2]: {
-        name: 'Gemini 2.0',
-        flag: 'Pro',
-        value: GEMIMI_2,
-    },
+
     [DEEPSEEK_R1]: {
         name: 'DeepSeek R1',
-        flag: 'New & Pro',
+        flag: 'New',
         value: DEEPSEEK_R1,
     },
-    [O1_MIMI]: {
+    [O1_MINI]: {
         name: 'O1-Mini',
-        flag: 'Pro',
-        value: O1_MIMI,
+        flag: 'New',
+        value: O1_MINI,
     },
-    [O1_PREVIEW]: {
-        name: 'O1-Preview',
-        flag: 'Premium',
-        value: O1_PREVIEW,
+    [O1]: {
+        name: 'o1',
+        flag: 'New',
+        value: O1,
     },
-};
+    [O3_MINI]: {
+        name: 'O3-Mini',
+        flag: 'New',
+        value: O3_MINI,
+    },
 
-const getFlagClassName = (flag: string) => {
-    if (!flag) {
-        return '';
-    }
-    if (flag?.toLowerCase().includes('new')) {
-        return 'text-green-600 bg-green-200 rounded-xl px-2';
-    }
-    if (flag === 'Pro' || flag === 'Premium') {
-        return 'text-primary bg-purple-300 rounded-xl px-2';
-    }
-};
+}
 
-const ModelItem: React.FC<{ model: Model }> = ({ model }) => (
+const getFlagClassName = ( flag: string ) => {
+    if ( !flag ) {
+        return ''
+    }
+    if ( flag?.toLowerCase().includes( 'new' ) ) {
+        return 'text-green-600 bg-green-200 rounded-xl px-2'
+    }
+    if ( flag === 'Pro' || flag === 'Premium' ) {
+        return 'text-primary bg-purple-300 rounded-xl px-2'
+    }
+}
+
+const ModelItem: React.FC<{ model: Model }> = ( { model } ) => (
     <RowSelectItem key={model.value} value={model.value} className="w-full p-2 block">
         <div className="flex w-full justify-between">
             <span className="text-md mr-2">{model.name}</span>
-            <span className={`text-xs flex items-center justify-center ${getFlagClassName(model.flag)}`}>{model.flag}</span>
+            <span className={`text-xs flex items-center justify-center ${getFlagClassName( model.flag )}`}>{model.flag}</span>
         </div>
     </RowSelectItem>
-);
+)
 
 export function ModelSelection() {
-    const { model, setModel } = useModelStore();
-    const selectedModel = modelMap[model] ?? modelMap[GPT_4o_MIMI];
+    const { model, setModel } = useModelStore()
+    const selectedModel = modelMap[model] ?? modelMap[GPT_4o_MIMI]
 
-    const signInModal = useSigninModal();
-    const upgradeModal = useUpgradeModal();
-    const user = useUserStore((state) => state.user);
+    const signInModal = useSigninModal()
+    const upgradeModal = useUpgradeModal()
+    const user = useUserStore( ( state ) => state.user )
+
+    console.log( "🚀 ~ ModelSelection ~ user:", user )
+
 
     return (
         <Select
             defaultValue={model}
             value={model}
-            onValueChange={(value) => {
-                if (value) {
-                    if (!user) {
-                        signInModal.onOpen();
-                    } else if (modelMap[value].flag === 'Pro') {
-                        if (!isProUser(user)) {
-                            upgradeModal.onOpen();
-                        } else if (value !== model) {
-                            setModel(value);
+            onValueChange={( value ) => {
+                if ( value ) {
+                    if ( !user ) {
+                        signInModal.onOpen()
+                    } else if ( modelMap[value].flag === 'Pro' ) {
+                        if ( !isProUser( user ) ) {
+                            upgradeModal.onOpen()
+                        } else if ( value !== model ) {
+                            setModel( value )
                         }
-                    } else if (modelMap[value].flag === 'Premium') {
-                        if (!isPremiumUser(user)) {
-                            upgradeModal.onOpen();
-                        } else if (value !== model) {
-                            setModel(value);
+                    } else if ( modelMap[value].flag === 'Premium' ) {
+                        if ( !isPremiumUser( user ) ) {
+                            upgradeModal.onOpen()
+                        } else if ( value !== model ) {
+                            setModel( value )
                         }
-                    } else if (value !== model) {
-                        setModel(value);
+                    } else if ( value !== model ) {
+                        setModel( value )
                     }
                 }
             }}
@@ -125,10 +127,10 @@ export function ModelSelection() {
                 </SelectValue>
             </SelectTrigger>
             <SelectContent>
-                {Object.values(modelMap).map((model) => (
+                {Object.values( modelMap ).map( ( model ) => (
                     <ModelItem key={model.value} model={model} />
-                ))}
+                ) )}
             </SelectContent>
         </Select>
-    );
+    )
 }

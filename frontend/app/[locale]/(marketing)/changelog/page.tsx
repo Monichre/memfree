@@ -1,34 +1,34 @@
 // @ts-nocheck
 
-import { formatDate } from '@/lib/utils';
-import { siteConfig } from '@/config';
-import { StepList } from '@/components/content/step-list';
-import Link from 'next/link';
-import { getChangelogData } from '@/lib/db';
+import { formatDate } from '@/lib/utils'
+import { siteConfig } from '@/config'
+import { StepList } from '@/components/content/step-list'
+import Link from 'next/link'
+import { getChangelogData } from '@/lib/db'
 
 export const metadata = {
-    title: 'MemFree Changelog -- Hybrid AI Search',
-    description: 'MemFree Changelog -- Hybrid AI Search',
+    title: 'Digital Mischief Group Changelog -- Hybrid AI Search',
+    description: 'Digital Mischief Group Changelog -- Hybrid AI Search',
     alternates: {
         canonical: siteConfig.url + '/changelog',
     },
-};
+}
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-static'
 export default async function Changelog() {
-    const data = await getChangelogData();
+    const data = await getChangelogData()
     return (
         <div className="min-h-screen">
             <div className="py-10 max-w-4xl mx-auto px-4">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-2xl sm:text-3xl font-bold">MemFree Changelog</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold">Digital Mischief Group Changelog</h1>
                     <h2 className="text-muted-foreground pt-6 font-bold">
-                        MemFree is committed to becoming the <strong>ultimate AI assistant</strong> for <strong>Indie Makers</strong> and{' '}
+                        Digital Mischief Group is committed to becoming the <strong>ultimate AI assistant</strong> for <strong>Indie Makers</strong> and{' '}
                         <strong>Full-Stack Developers</strong>. Our vision is to boost product development efficiency by <strong>10x</strong> through
                         cutting-edge AI technology.
                     </h2>
                     <h2 className="text-muted-foreground pt-6 font-bold">
-                        Currently, MemFree offers five core features: <strong>AI Search</strong>, <strong>AI Chatbot</strong>, <strong>AI UI generator</strong>,{' '}
+                        Currently, Digital Mischief Group offers five core features: <strong>AI Search</strong>, <strong>AI Chatbot</strong>, <strong>AI UI generator</strong>,{' '}
                         <strong>AI Image generator</strong>, and <strong>AI Coding Assistant</strong>.
                     </h2>
                     <h2 className="text-muted-foreground pt-6 font-bold">
@@ -46,8 +46,8 @@ export default async function Changelog() {
                         <div className="absolute left-24 top-0 bottom-0 w-0.5 bg-muted hidden sm:block" />
 
                         <div className="space-y-8 sm:space-y-12">
-                            {data?.changelog?.map((release, index) => {
-                                const date = formatDate(release.date);
+                            {data?.changelog?.map( ( release, index ) => {
+                                const date = formatDate( release.date )
                                 return (
                                     <div key={index} className="relative">
                                         <div className="flex flex-col sm:block">
@@ -93,7 +93,7 @@ export default async function Changelog() {
                                                     {/* Content */}
                                                     <div className="p-4 sm:p-6">
                                                         <div className="space-y-6">
-                                                            {release.changes.map((change, changeIndex) => (
+                                                            {release.changes.map( ( change, changeIndex ) => (
                                                                 <div key={changeIndex}>
                                                                     <div className="flex items-center space-x-2 mb-6">
                                                                         <span
@@ -106,7 +106,7 @@ export default async function Changelog() {
                                                                         <StepList steps={change.stepItems} />
                                                                     ) : (
                                                                         <ul className="space-y-2 text-gray-600 ml-4">
-                                                                            {change.items.map((item, itemIndex) => (
+                                                                            {change.items.map( ( item, itemIndex ) => (
                                                                                 <li key={itemIndex} className=" flex items-start">
                                                                                     <span className="mr-2">•</span>
                                                                                     {item.link ? (
@@ -121,23 +121,23 @@ export default async function Changelog() {
                                                                                         <span>{item.text}</span>
                                                                                     )}
                                                                                 </li>
-                                                                            ))}
+                                                                            ) )}
                                                                         </ul>
                                                                     )}
                                                                 </div>
-                                                            ))}
+                                                            ) )}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                );
-                            })}
+                                )
+                            } )}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    );
+    )
 }

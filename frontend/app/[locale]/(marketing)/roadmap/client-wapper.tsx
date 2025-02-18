@@ -1,20 +1,20 @@
 // @ts-nocheck
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Progress } from '@/components/ui/progress';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { ArrowUpIcon, MessageSquare, Paperclip, Calendar, Tag } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import Link from 'next/link';
+import { useState } from 'react'
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Progress } from '@/components/ui/progress'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { ArrowUpIcon, MessageSquare, Paperclip, Calendar, Tag } from 'lucide-react'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import Link from 'next/link'
 
 const jsondata = {
     labels: {
-        productRoadmap: 'MemFree Roadmap',
+        productRoadmap: 'Digital Mischief Group Roadmap',
         trackProgress: 'All-in-One AI Assistant for Indie Makers and Developers',
         inReview: 'In Review',
         inProgress: 'In Progress',
@@ -135,25 +135,25 @@ const jsondata = {
             progress: 100,
         },
     ],
-};
+}
 
-export default function RoadmapPage({ data = jsondata }) {
-    const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-    const [votedTasks, setVotedTasks] = useState<Set<string>>(new Set());
-    const handleVote = (taskId: string) => {
-        if (!votedTasks.has(taskId)) {
-            setVotedTasks(new Set([...votedTasks, taskId]));
+export default function RoadmapPage( { data = jsondata } ) {
+    const [selectedTask, setSelectedTask] = useState<Task | null>( null )
+    const [votedTasks, setVotedTasks] = useState<Set<string>>( new Set() )
+    const handleVote = ( taskId: string ) => {
+        if ( !votedTasks.has( taskId ) ) {
+            setVotedTasks( new Set( [...votedTasks, taskId] ) )
         }
-    };
+    }
 
-    const filterTasksByStatus = (status: string) => {
-        return data.tasks.filter((task) => {
-            if (task.status !== status) return false;
-            return true;
-        });
-    };
+    const filterTasksByStatus = ( status: string ) => {
+        return data.tasks.filter( ( task ) => {
+            if ( task.status !== status ) return false
+            return true
+        } )
+    }
 
-    const TaskCard = ({ task }: { task: Task }) => (
+    const TaskCard = ( { task }: { task: Task } ) => (
         <Card
             className="group p-4 hover:shadow-lg transition-all duration-200 border-l-4"
             style={{
@@ -161,14 +161,14 @@ export default function RoadmapPage({ data = jsondata }) {
             }}
         >
             <div className="flex justify-between items-start">
-                <h3 className="text-primary hover:underline font-semibold cursor-pointer" onClick={() => setSelectedTask(task)}>
+                <h3 className="text-primary hover:underline font-semibold cursor-pointer" onClick={() => setSelectedTask( task )}>
                     {task.title}
                 </h3>
                 <Button
                     variant="ghost"
                     size="sm"
-                    className={`${votedTasks.has(task.id) ? 'text-blue-600' : 'text-gray-500'}`}
-                    onClick={() => handleVote(task.id)}
+                    className={`${votedTasks.has( task.id ) ? 'text-blue-600' : 'text-gray-500'}`}
+                    onClick={() => handleVote( task.id )}
                 >
                     <ArrowUpIcon className="h-4 w-4 mr-1" />
                     {task.votes}
@@ -187,11 +187,11 @@ export default function RoadmapPage({ data = jsondata }) {
             </div>
 
             <div className="mt-3 flex items-center gap-2 flex-wrap">
-                {task.tags.map((tag) => (
+                {task.tags.map( ( tag ) => (
                     <Badge key={tag} variant="secondary" className="text-xs">
                         {tag}
                     </Badge>
-                ))}
+                ) )}
             </div>
 
             <div className="mt-3 flex items-center justify-between text-gray-500">
@@ -208,23 +208,23 @@ export default function RoadmapPage({ data = jsondata }) {
                 <span className="text-xs">{task.date}</span>
             </div>
         </Card>
-    );
+    )
 
-    const TaskColumn = ({ title, status }: { title: string; status: string }) => (
+    const TaskColumn = ( { title, status }: { title: string; status: string } ) => (
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
                 <div className="flex items-center gap-2">
                     <h2 className="text-xl font-semibold text-gray-700">{title}</h2>
-                    <Badge variant="secondary">{filterTasksByStatus(status).length}</Badge>
+                    <Badge variant="secondary">{filterTasksByStatus( status ).length}</Badge>
                 </div>
             </div>
             <div className="flex flex-col gap-3">
-                {filterTasksByStatus(status).map((task) => (
+                {filterTasksByStatus( status ).map( ( task ) => (
                     <TaskCard key={task.id} task={task} />
-                ))}
+                ) )}
             </div>
         </div>
-    );
+    )
 
     return (
         <div className="min-h-screen">
@@ -246,7 +246,7 @@ export default function RoadmapPage({ data = jsondata }) {
                     </div>
                 </div>
 
-                <Dialog open={!!selectedTask} onOpenChange={() => setSelectedTask(null)}>
+                <Dialog open={!!selectedTask} onOpenChange={() => setSelectedTask( null )}>
                     {selectedTask && (
                         <DialogContent className="max-w-2xl">
                             <DialogHeader>
@@ -255,8 +255,8 @@ export default function RoadmapPage({ data = jsondata }) {
 
                             <div className="mt-4">
                                 <div className="flex items-center gap-4 mb-4">
-                                    <Badge className={getStatusColor(selectedTask.status)}>{selectedTask.status}</Badge>
-                                    <Badge className={getPriorityColor(selectedTask.priority)}>{selectedTask.priority}</Badge>
+                                    <Badge className={getStatusColor( selectedTask.status )}>{selectedTask.status}</Badge>
+                                    <Badge className={getPriorityColor( selectedTask.priority )}>{selectedTask.priority}</Badge>
                                 </div>
 
                                 <div className="flex items-center gap-4 mb-6">
@@ -307,11 +307,11 @@ export default function RoadmapPage({ data = jsondata }) {
                                     <div>
                                         <h4 className="font-medium mb-2">{data.labels.tags}</h4>
                                         <div className="flex flex-wrap gap-2">
-                                            {selectedTask.tags.map((tag) => (
+                                            {selectedTask.tags.map( ( tag ) => (
                                                 <Badge key={tag} variant="secondary">
                                                     {tag}
                                                 </Badge>
-                                            ))}
+                                            ) )}
                                         </div>
                                     </div>
                                 </div>
@@ -328,31 +328,31 @@ export default function RoadmapPage({ data = jsondata }) {
                 </p>
             </div>
         </div>
-    );
+    )
 }
 
-const getStatusColor = (status: string) => {
-    switch (status) {
+const getStatusColor = ( status: string ) => {
+    switch ( status ) {
         case 'review':
-            return 'bg-purple-100 text-purple-800';
+            return 'bg-purple-100 text-purple-800'
         case 'progress':
-            return 'bg-blue-100 text-blue-800';
+            return 'bg-blue-100 text-blue-800'
         case 'completed':
-            return 'bg-green-100 text-green-800';
+            return 'bg-green-100 text-green-800'
         default:
-            return 'bg-gray-100 text-gray-800';
+            return 'bg-gray-100 text-gray-800'
     }
-};
+}
 
-const getPriorityColor = (priority: string) => {
-    switch (priority) {
+const getPriorityColor = ( priority: string ) => {
+    switch ( priority ) {
         case 'high':
-            return 'bg-red-100 text-red-800';
+            return 'bg-red-100 text-red-800'
         case 'medium':
-            return 'bg-yellow-100 text-yellow-800';
+            return 'bg-yellow-100 text-yellow-800'
         case 'low':
-            return 'bg-green-100 text-green-800';
+            return 'bg-green-100 text-green-800'
         default:
-            return 'bg-gray-100 text-gray-800';
+            return 'bg-gray-100 text-gray-800'
     }
-};
+}
