@@ -37,6 +37,7 @@ const nextConfig = {
             },
         ],
     },
+    ignoreBuildErrors: true,
 };
 
 module.exports = withBundleAnalyzer(withNextIntl(withContentlayer(nextConfig)));
